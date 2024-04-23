@@ -497,7 +497,7 @@ def sql_connection(user=None, password=None):
         password = request.authorization.password
     config = {
         'user':                   user,
-        'password':               hashlib.md5(password),
+        'password':               hashlib.md5(password.encode("utf-8")),
         'host':                   request.headers.get('X-Host', variables.database_address),
         'port':               int(request.headers.get('X-Port', variables.database_port)),
         'database':               request.headers.get('X-Db', variables.databse_default),
