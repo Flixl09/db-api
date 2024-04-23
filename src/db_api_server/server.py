@@ -4,12 +4,14 @@
 """server: db-api."""
 
 from __future__ import absolute_import
+import variables
 
 __version__ = '1.0.5'
 
 import base64
 import decimal
 import json
+import sys
 
 import flask.json
 from flask import Flask
@@ -490,17 +492,15 @@ def sqlinsert(sql, values, user, password):
 def sql_connection(user=None, password=None):
     """sql: connection."""
     if not user:
-        user = request.authorization.username
-
+        user = request.authorization.usernam
     if not password:
         password = request.authorization.password
-
     config = {
         'user':                   user,
         'password':               password,
-        'host':                   request.headers.get('X-Host', '127.0.0.1'),
-        'port':               int(request.headers.get('X-Port', '3306')),
-        'database':               request.headers.get('X-Db', ''),
+        'host':                   request.headers.get('X-Host', variables.database_address),
+        'port':               int(request.headers.get('X-Port', variables.database_port)),
+        'database':               request.headers.get('X-Db', variables.databse_default),
         'raise_on_warnings':      request.headers.get('X-Raise-Warnings', True),
         'get_warnings':           request.headers.get('X-Get-Warnings', True),
         'auth_plugin':            request.headers.get('X-Auth-Plugin', 'mysql_native_password'),
@@ -515,7 +515,7 @@ def sql_connection(user=None, password=None):
 
 def main():
     """main: app."""
-    APP.run(port=8980, debug=False)
+    APP.run(port=variables.srv_port, debug=False, host=variables.srv_address)
 
 
 if __name__ == "__main__":
