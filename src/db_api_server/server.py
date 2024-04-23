@@ -492,7 +492,7 @@ def sqlinsert(sql, values, user, password):
 def sql_connection(user=None, password=None):
     """sql: connection."""
     if not user:
-        user = request.authorization.usernam
+        user = request.authorization.username
     if not password:
         password = request.authorization.password
     config = {
@@ -515,7 +515,7 @@ def sql_connection(user=None, password=None):
 
 def main():
     """main: app."""
-    APP.run(port=variables.srv_port, debug=False, host=variables.srv_address)
+    APP.run(port=variables.srv_port, debug=False, host=variables.srv_address, ssl_context=variables.ssl)
 
 
 if __name__ == "__main__":
