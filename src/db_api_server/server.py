@@ -494,7 +494,7 @@ def sql_connection(user=None, password=None):
     if not user:
         user = request.authorization.username
     if not password:
-        password = request.authorization.password
+        password = request.authorization.password.encode("utf-8")
     config = {
         'user':                   user,
         'password':               hashlib.md5(password),
