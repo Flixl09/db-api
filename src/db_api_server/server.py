@@ -60,7 +60,8 @@ APP.json_encoder = AppJSONEncoder
 APP.config['JSONIFY_PRETTYPRINT_REGULAR'] = True     # default False
 APP.config['JSON_SORT_KEYS'] = False                 # default True
 APP.config['JSONIFY_MIMETYPE'] = 'application/json'  # default 'application/json'
-
+APP.add_url_rule('/favicon.ico',
+                 redirect_to=url_for('static', filename='favicon.ico'))
 
 @APP.route("/", methods=['GET'])
 def root():
