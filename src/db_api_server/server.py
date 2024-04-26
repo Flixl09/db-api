@@ -121,9 +121,9 @@ def get_one(database=None, table=None, key=None):
     key = request.view_args['key']
 
     fields = request.args.get("fields", '*')
-    column = request.args.get("column", 'id')
-
-    print(request)
+    row = fetchone(f"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = {table} ORDER BY ORDINAL_POSITION LIMIT 1; ")
+    print(row)
+    column = request.args.get("column", row)
 
     sql = "SELECT " + fields + " FROM " + database + "." + table
     sql += " WHERE " + column + "='" + key + "'"
