@@ -14,7 +14,7 @@ import json
 import hashlib
 
 import flask.json
-from flask import Flask
+from flask import Flask, url_for
 from flask import request
 from flask import jsonify
 from werkzeug.exceptions import HTTPException
@@ -122,6 +122,8 @@ def get_one(database=None, table=None, key=None):
 
     fields = request.args.get("fields", '*')
     column = request.args.get("column", 'id')
+
+    print(request)
 
     sql = "SELECT " + fields + " FROM " + database + "." + table
     sql += " WHERE " + column + "='" + key + "'"
